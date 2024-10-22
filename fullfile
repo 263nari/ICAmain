@@ -1,0 +1,150 @@
+#Imports
+import zipfile
+from pathlib import Path
+from datetime import datetime as dt
+import sys
+import os
+from os import system, name
+from zipfile import ZipFile
+import datetime
+import time
+
+
+#Functions
+def check_directory(p, fp):
+    if p.is_dir():
+        print(fp, "is a directory\n")
+    elif p.file():
+      #issue^
+      print(fp, "is a file\n")
+      sys.exit("Program will exit\n\n")
+    else:
+        print(fp, "does not exist\n")
+        sys.exit("Program will exit\n\n")
+def convert_to_dt(seconds):
+    seconds = int(seconds)
+    my_dt = dt.utcfromtimestamp(seconds).strftime('%d-%m-%Y %H:%M:%S') + " UTC"
+    return my_dt
+def directory_size(directory_path):
+    size=0
+    for (dir_paths, dir_names, file_names) in os.walk(directory_path):
+        for file_name in file_names:
+            file_path = os.path.join(dir_paths, file_name)
+            if not os.path.islink(file_path):
+                size += size + os.path.getsize(file_path)
+    return size
+def directory_contents_count(p):
+    directory_listing = p.iterdir()
+    file_count = 0
+    dir_count = 0
+    for item_path in directory_listing:
+        if item_path.is_file():
+            file_count += file_count + 1
+        else:
+            dir_count += dir_count + 1    
+    
+
+    counts = (file_count, dir_count)
+    return counts
+
+def display_title(title):
+  print(title.upper(), "\mn")
+def showmenu():
+    print("\n")
+    print("\t\t Menu")
+    print("\t╔════════════════════════════╗")
+    print("\t 1: View Zip File meta data")
+    print("\t 2: View details of Zip File Members")
+    print("\t 3: Extract Zip File")
+    print("\t 0: Quit")
+    print("\t╚═════════════════════════════╝\n")
+    print("\n")
+
+#Menu
+
+while True:
+    showmenu()
+    choice = input("Make a selection:\n> ")
+    if choice == "1":
+      display_title("METADATA OF Contents of A DIRECTORY")
+      dir_path = "data/"
+      path = Path(dir_path)
+      check_directory(path, dir_path)
+      #issue
+      listing=path.iterdir()
+      print("Contents of", dir_path,)
+      for item in listing:
+          print("\n", item.name)
+          file_stat = item.stat()
+          print("\tUser ID:", file_stat.st_uid)
+          print("\tModified:", convert_to_dt(file_stat.st_mtime))
+          print("\tAccessed:", convert_to_dt(file_stat.st_atime))
+          print("\tCreated:", convert_to_dt(file_stat.st_ctime))
+          if item.is_dir():
+              print("\tType: Directory")
+              print("\tDirectory size:", directory_size(item.resolve()), "bytes")
+              contents_count = directory_contents_count(item)
+              print("\tFiles contained:", contents_count[0])
+              print("\tSub directories contained:", contents_count[1])
+          else:
+              print("\tType: File")
+              print("\tFile size:", file_stat.st_size)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #display_title("Details of contents of the zip file")
+        #zip_file_path = sys.argv[1]
+        #this is wrong ^
+        #List index out of range - no clue??
+        #not file path - must be code
+#if zipfile.is_zipfile(zip_file_path):
+    #with ZipFile(zip_file_path, 'r') as zip_f:
+        #zip_info_list = zip_f.infolist()
+    #report = ""
+    #for item in zip_info_list:
+        #report = report + "Item name: " + item.filename + "\n"
+        #item_dt = dt(*item.date_time)
+        #report = report + "\tModified: " + str(item_dt) + "\n"
+        #os_value = item.create_system
+        #if os_value == 0:
+            #report = report + "\tSystem: Windows" + "\n"
+        #elif os_value == 3:
+            #report = report + "\tSystem: UNIX" + "\n"
+        #report = report + "\tZIP version: " + str(item.create_version) + "\n"
+        #report = report + "\tOriginal size in bytes: " + str(item.file_size) + "\n"
+        #report = report + "\tCompressed size in bytes: " + str(item.compress_size) + "\n"
+
+    #if len(report) > 0:
+        #print(report)
+    #else:
+        #print("\tZip file is empty\n")
+
+#else:
+    print("\tProvided path is not for a valid zip file ###\n")
+
+
+
+
+   # if choice == "2":
+
+
+
+    #if choice == "3":
+
+
+        #End of the End.
+
+    if int(choice) >= 4 or int(choice) <= 0:
+        print("Invalid Answer, Please enter a correct value.\n")
+
