@@ -1,1 +1,53 @@
+from pathlib import Path
+import sys
+from os import system, name
 
+#function 
+
+def display_title(title):
+    if name == "nt":
+        system("cls")
+
+    else:
+        system("clear")
+    print(title.upper(), "\n")
+
+def check_file(p, fp):
+    if p.is_file():
+        print(fp, "is a file\n")
+
+    elif p.is_dir():
+        print(fp, "is a directory\n")
+        sys.exit("Program will exit\n\n")
+
+    else:
+        print(fp, "does not exist\n")
+        sys.exit("Program will exit\n\n")
+
+#main code
+
+display_title("Zip File Meta Data")
+
+zip_file_path = "test1.zip"
+
+if zipfile.is_zipfile(zip_file_path):
+  print("Provided path is for a valid zipfile.\n")
+
+path = Path(zip_file_path)
+
+print("\tPath : ", path.resolve())
+
+file_stat = path.stat()
+
+print("\tSize: ", file_stat.st_size, " bytes")
+
+print("\tCreated: ", covert_to_dt(file_stat.st_ctime))
+
+print("\tLast Modified: ", covert_to_dt(file_stat.stmtime))
+
+print("\tLast Accessed: ", convert_to_dt(file_stat.st.atime))
+
+
+else:
+
+  Print("Provided path is not for a valid zipfile")
