@@ -2,7 +2,8 @@ from pathlib import Path
 import sys
 from os import system, name
 import zipfile
-from zipfile import Zipfile
+from zipfile import ZipFile
+from datetime import datetime as dt
 
 #function 
 
@@ -45,9 +46,9 @@ if zipfile.is_zipfile(zip_file_path):
 
     print("\tCreated: ", covert_to_dt(file_stat.st_ctime))
 
-    print("\tLast Modified: ", covert_to_dt(file_stat.stmtime))
+    print("\tLast Modified: ", covert_to_dt(file_stat.st_mtime))
     
-    print("\tLast Accessed: ", convert_to_dt(file_stat.st.atime))
+    print("\tLast Accessed: ", convert_to_dt(file_stat.st_atime))
 
 else:
-    Print("Provided path is not for a valid zipfile")
+    print("Provided path is not for a valid zipfile")
