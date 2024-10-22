@@ -31,23 +31,21 @@ display_title("Zip File Meta Data")
 zip_file_path = "test1.zip"
 
 if zipfile.is_zipfile(zip_file_path):
-  print("Provided path is for a valid zipfile.\n")
+    print("Provided path is for a valid zipfile.\n")
 
-path = Path(zip_file_path)
+    path = Path(zip_file_path)
 
-print("\tPath : ", path.resolve())
+    print("\tPath : ", path.resolve())
 
-file_stat = path.stat()
+    file_stat = path.stat()
 
-print("\tSize: ", file_stat.st_size, " bytes")
+    print("\tSize: ", file_stat.st_size, " bytes")
 
-print("\tCreated: ", covert_to_dt(file_stat.st_ctime))
+    print("\tCreated: ", covert_to_dt(file_stat.st_ctime))
 
-print("\tLast Modified: ", covert_to_dt(file_stat.stmtime))
-
-print("\tLast Accessed: ", convert_to_dt(file_stat.st.atime))
-
+    print("\tLast Modified: ", covert_to_dt(file_stat.stmtime))
+    
+    print("\tLast Accessed: ", convert_to_dt(file_stat.st.atime))
 
 else:
-
-  Print("Provided path is not for a valid zipfile")
+    Print("Provided path is not for a valid zipfile")
