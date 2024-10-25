@@ -1,1 +1,30 @@
-Start
+#Imports
+import zipfile
+from pathlib import Path
+from datetime import datetime as dt
+import sys
+import os
+from os import system, name
+from zipfile import ZipFile
+import datetime
+import time
+
+def display_title(title):
+  print(title.upper(), "\mn")
+def showmenu():
+    print("\n")
+    print("\t\t Menu")
+    print("\t╔════════════════════════════╗")
+    print("\t 1: View Zip File meta data")
+    print("\t 2: View details of Zip File Members")
+    print("\t 3: Extract Zip File")
+    print("\t 0: Quit")
+    print("\t╚═════════════════════════════╝\n")
+    print("\n")
+
+#Menu
+
+while True:
+    showmenu()
+    choice = input("Make a selection:\n> ")
+    if choice == "1":
