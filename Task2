@@ -15,6 +15,9 @@ def display_title(title):
         system("clear")
     print(title.upper(), "\n")
 
+def convert_to_dt(seconds):
+    seconds = int(seconds)
+
 def check_file(p, fp):
     if p.is_file():
         print(fp, "is a file\n")
@@ -44,9 +47,9 @@ if zipfile.is_zipfile(zip_file_path):
 
     print("\tSize: ", file_stat.st_size, " bytes")
 
-    print("\tCreated: ", covert_to_dt(file_stat.st_ctime))
+    print("\tCreated: ", convert_to_dt(file_stat.st_ctime))
 
-    print("\tLast Modified: ", covert_to_dt(file_stat.st_mtime))
+    print("\tLast Modified: ", convert_to_dt(file_stat.st_mtime))
     
     print("\tLast Accessed: ", convert_to_dt(file_stat.st_atime))
 
