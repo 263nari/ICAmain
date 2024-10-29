@@ -1,0 +1,189 @@
+# this program adapst a metadata example from week4
+# it will be code needed to write output file whwen ica program quits in task 5
+
+
+####################
+#load modules
+####################
+from pathlib import Path
+
+from datetime import datetime as dt
+
+import sys
+import os
+from os import system, name
+
+
+####################
+#function area
+####################
+
+#function to clear screen and display title
+def display_title(title):
+  
+    #check if windows and clear screen
+    if name == "nt":
+        system("cls")
+  
+    #for non windows clear screen
+    else:
+        system("clear")
+
+    #display title
+    print(title.upper(), "\n")
+
+
+#function to check if directory exists
+def check_directory(p_path, p_filepath):
+
+    print("path object is:\t", p_path)
+    print("path file:\t", p_filepath)
+    
+    #check if directory
+    if p_path.is_dir():
+        print(p_filepath, "is a directory\n")
+        
+    #check if a file
+    elif p_path.is_file():
+        print(p_filepath, "is a file\n")
+        sys.exit("Program will exit\n\n")
+
+    #in case it does not exist
+    else:
+        print(p_filepath, "does not exist\n")
+        sys.exit("Program will exit\n\n")
+
+
+def convert_to_dt(seconds):
+    #covert seconds to int
+    seconds = int(seconds)
+    
+    #convert seconds to datae time string
+    my_dt = dt.utcfromtimestamp(seconds).strftime('%d-%m-%Y %H:%M:%S') + " UTC"
+
+    #return string
+    return my_dt
+
+
+#function to calculate directory size
+def directory_size(directory_path):
+    
+    #set local size variable to zero
+    size=0
+    
+    #traverse the directory path
+    for (dir_paths, dir_names, file_names) in os.walk(directory_path):
+    
+        #loop through filenames tuple
+        for file_name in file_names:
+        
+            #get relative file path for each filename in file names tuple
+            file_path = os.path.join(dir_paths, file_name)
+
+            #Check that filename is an actual file and not a symbolic link
+            if not os.path.islink(file_path):
+        
+                #add size of file to running total
+                size = size + os.path.getsize(file_path)
+    
+    #return calculated size
+    return size
+    
+
+#function to return file and directoy count in a directory path object
+def directory_contents_count(p):
+
+    #get listing
+    directory_listing = p.iterdir()
+
+    #set local count variables to zero
+    file_count = 0
+    dir_count = 0
+    
+    #loop through listing
+    for item_path in directory_listing:
+    
+        #check if item if a file
+        if item_path.is_file():
+            #increment file count
+            file_count = file_count + 1
+        else:
+            #otherwise increment directory count
+            dir_count = dir_count + 1    
+    
+    #return counts in form of a tuple
+    counts = (file_count, dir_count)
+    return counts
+
+    
+
+    
+####################
+#main script area
+####################
+
+#title
+display_title("METADATA OF Contents of A DIRECTORY")
+
+#task4 will extract zip file contents into a folder named extracted_files
+#so use this directory name for path
+dir_path = "extracted_files"
+
+#get directory from command line argument
+#dir_path = sys.argv[1]
+
+#set output file path i.e. report.html
+
+
+#create path object for directory
+path = Path(dir_path)
+
+#create path object for output file
+
+
+#Check if a folder
+check_directory(path, dir_path)
+
+#get list of contents
+listing=path.iterdir()
+
+
+#create a report variable
+report="<html>\n"
+
+#loop through list
+print("Contents of", dir_path,)
+for item in listing:
+    
+    #add file name to report
+    report = report + "\n" + item.name
+
+    #get the stat result object from the Path
+    file_stat = item.stat()
+
+    #file size
+    report = report + "\n\tFile size:" + str(file_stat.st_size)
+    
+    #Created time
+    report = report + "\n\tCreated:" + convert_to_dt(file_stat.st_ctime)
+    
+    #Last modified time
+    report = report + "\n\tModified:" + convert_to_dt(file_stat.st_mtime)
+
+
+#close html in report
+report = report + "\n</html>"
+
+#display report
+print(report)
+
+#use with statement to open output path object for writing (line 56 of write.py from 5B lecture)
+
+    #write variable to file
+    
+    
+    #close file
+
+
+#display end message
+print("\n", "### End of Program ###", "\n\n")
