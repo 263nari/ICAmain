@@ -1,3 +1,9 @@
+#IGNORE
+#this was a test and may be changed later or scrapped
+
+
+
+
 #Imports
 import zipfile
 from pathlib import Path
