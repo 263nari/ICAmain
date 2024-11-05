@@ -11,6 +11,7 @@ import time
 
 def display_title(title):
   print(title.upper(), "\mn")
+  
 def showmenu():
     print("\n")
     print("\t\t Menu")
@@ -27,7 +28,8 @@ def showmenu():
 while True:
     showmenu()
     choice = input("Make a selection:\n> ")
-    if choice == "1":
+    if int(choice) >= 3 or int(choice) <= 0:
+      print("Invalid Answer, Please enter a correct value.\n")
 
- if int(choice) >= 3 or int(choice) <= 0:
-        print("Invalid Answer, Please enter a correct value.\n")
+    if choice == "1":
+      print("hello")
