@@ -1,10 +1,8 @@
 import zipfile
 from zipfile import ZipFile
 
-from PIL import Image
-
 from pathlib import Path
-
+import os
 import sys
 from os import system, name
 
@@ -22,7 +20,7 @@ def display_title(title):
     print(title.upper(), "\n")
 
 
-
+current_working_directory = os.getcwd()
 
 display_title("Displaying images from a zip file")
 #
@@ -57,7 +55,8 @@ if zipfile.is_zipfile(zip_file_path):
 #create path object for extraction directory
 path = Path(dir_path)
 
-print("contents of '" + zip + "' have been extracted to")
+print("contents of '" + zip + "' have been extracted to " + current_working_directory)
+# from https://www.freecodecamp.org/news/python-get-current-directory/
 #check if directory does not exist
 if not path.is_dir():
     #inform user unable to extract` and exit
@@ -67,4 +66,3 @@ if not path.is_dir():
 
 #get list of directory contents
 listing=path.iterdir()
-
