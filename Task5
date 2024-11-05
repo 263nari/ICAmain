@@ -136,16 +136,16 @@ dir_path = "extracted_files"
 filepath = "report.html"
 
 #create path object for directory
-path = Path(dir_path)
+path_dir = Path(dir_path)
 
 #create path object for output file
 path = Path(filepath) 
 
 #Check if a folder
-check_directory(path, dir_path)
+check_directory(path_dir, dir_path)
 
 #get list of contents
-listing=path.iterdir()
+listing=path_dir.iterdir()
 
 #create a report variable
 report="<html>\n"
@@ -155,7 +155,7 @@ print("Contents of", dir_path,)
 for item in listing:
     
     #add file name to report
-    report = report + "\n" + item.name
+    report = report + "\n<h3>" + item.name + "</h3>\n<table>"
 
     #get the stat result object from the Path
     file_stat = item.stat()
@@ -169,6 +169,8 @@ for item in listing:
     #Last modified time
     report = report + "\n\tModified:" + convert_to_dt(file_stat.st_mtime)
 
+    #close table
+    report = report + "\n</table>
 
 #close html in report
 report = report + "\n</html>"
@@ -178,7 +180,7 @@ print(report)
 
 #use with statement to open output path object for writing (line 56 of write.py from 5B lecture)
 
-    print("Opening", filepath, "in write mode")
+print("Opening", filepath, "in write mode")
 with path.open("w") as report_f: 
     report_f.write(report)
 
