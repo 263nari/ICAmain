@@ -1,1 +1,70 @@
+import zipfile
+from zipfile import ZipFile
+
+from PIL import Image
+
+from pathlib import Path
+
+import sys
+from os import system, name
+
+def display_title(title):
+  
+
+    if name == "nt":
+        system("cls")
+  
+
+    else:
+        system("clear")
+
+
+    print(title.upper(), "\n")
+
+
+
+
+display_title("Displaying images from a zip file")
+#
+zip = input("what is the name of your zipfile?\n")
+
+if zip == "test1":
+    zip_file_path = "test1.zip"
+
+elif zip == "test2":
+    zip_file_path = "test2.zip"
+
+elif zip == "test3":
+    zip_file_path = "test3.zip"
+
+else:
+    print("invalid zip file, please use the zip files provided by the ICA")
+
+#
+#set path for directory where images will go
+dir_path = "extracted_files/"
+
+#check if path is for a zip file
+if zipfile.is_zipfile(zip_file_path):
+
+    #open filehandle to zip file
+    with ZipFile(zip_file_path, 'r') as zip_f:
+
+        #list contents
+        zip_f.extractall(dir_path)
+
+    
+#create path object for extraction directory
+path = Path(dir_path)
+
+print("contents of '" + zip + "' have been extracted to")
+#check if directory does not exist
+if not path.is_dir():
+    #inform user unable to extract` and exit
+    print("### Unable to extract zip file ###\n")
+    sys.exit()
+
+
+#get list of directory contents
+listing=path.iterdir()
 
