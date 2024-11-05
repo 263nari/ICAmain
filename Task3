@@ -1,4 +1,3 @@
-
 import zipfile
 from zipfile import ZipFile
 
@@ -6,8 +5,10 @@ import sys
 from os import system, name
 
 def display_title(title):
-  zip = input("what is the name of your zipfile?\n")
+  
+ # zip = input("what is the name of your zipfile?\n")
 
+  """
   if zip == "test1":
     zip_file_path = "test1.zip"
 
@@ -19,18 +20,20 @@ def display_title(title):
 
   else:
       print("invalid zip file, please use the zip files provided by the ICA")
-
-    if name == "nt":
-        system("cls")
+  """
   
-    else:
-        system("clear")
+  if name == "nt":
+    system("cls")
+  
+  else:
+    system("clear")
 
     print(title.upper(), "\n")
 
-display_title("Listing contents of a zip file")
 
-zip_file_path = sys.argv[1]
+zip_file_path = input("what is the name of your zipfile?\n")
+
+display_title( ("Listing contents of: " + zip_file_path) )
 
 
 if zipfile.is_zipfile(zip_file_path):
