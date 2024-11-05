@@ -34,7 +34,20 @@ def check_file(p, fp):
 
 display_title("Zip File Meta Data")
 
-zip_file_path = "test1.zip"
+zip = input("what is the name of your zipfile?\n")
+
+if zip == "test1":
+    zip_file_path = "test1.zip"
+
+elif zip == "test2":
+    zip_file_path = "test2.zip"
+
+elif zip == "test3":
+    zip_file_path = "test3.zip"
+
+else:
+    print("invalid zip file, please use the zip files provided by the ICA")
+
 
 if zipfile.is_zipfile(zip_file_path):
     print("Provided path is for a valid zipfile.\n")
