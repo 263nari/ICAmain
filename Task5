@@ -133,20 +133,19 @@ dir_path = "extracted_files"
 #dir_path = sys.argv[1]
 
 #set output file path i.e. report.html
-
+filepath = "report.html"
 
 #create path object for directory
 path = Path(dir_path)
 
 #create path object for output file
-
+path = Path(filepath) 
 
 #Check if a folder
 check_directory(path, dir_path)
 
 #get list of contents
 listing=path.iterdir()
-
 
 #create a report variable
 report="<html>\n"
@@ -179,11 +178,12 @@ print(report)
 
 #use with statement to open output path object for writing (line 56 of write.py from 5B lecture)
 
-    #write variable to file
-    
-    
-    #close file
+    print("Opening", filepath, "in write mode")
+with path.open("w") as report_f: 
+    report_f.write(report)
 
+    #close file
+    report_f.close()
 
 #display end message
 print("\n", "### End of Program ###", "\n\n")
