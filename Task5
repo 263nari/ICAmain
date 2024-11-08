@@ -127,61 +127,70 @@ display_title("METADATA OF Contents of A DIRECTORY")
 
 #task4 will extract zip file contents into a folder named extracted_files
 #so use this directory name for path
-dir_path = "extracted_files"
+dir_path = "extracted_files/"
 
 #get directory from command line argument
 #dir_path = sys.argv[1]
 
 #set output file path i.e. report.html
-filepath = "report.html"
+output_filepath = "report.html"
 
 #create path object for directory
-path_dir = Path(dir_path)
+dir_path_object = Path(dir_path)
 
 #create path object for output file
-path = Path(filepath) 
+output_path_object = Path(output_filepath) 
 
 #Check if a folder
-check_directory(path_dir, dir_path)
+#check_directory(path_dir_object, dir_path)
 
-#get list of contents
-listing=path_dir.iterdir()
 
 #create a report variable
 report="<html>\n"
 
-#loop through list
-print("Contents of", dir_path,)
-for item in listing:
+# add head section and opening body tag
+
+
+#print("Contents of", dir_path,)
+
+#loop through items in directory
+for item in dir_path_object.iterdir():
     
     #add file name to report
-    report = report + "\n<h3>" + item.name + "</h3>\n<table>"
-
+    report = report + "\n<h3>" + item.name + "</h3>"
+    
     #get the stat result object from the Path
     file_stat = item.stat()
 
+    #start table and header row
+    report = report + "\n<table>"
+    report = report + "\n\t<tr>" + "<td>MetaData</td>" + "<td>Value</td>" + "</tr>"
+    
     #file size
-    report = report + "\n\tFile size:" + str(file_stat.st_size)
+    report = report + "\n\t<tr>" + "<td>" + "File size" + "</td>" + "<td>" + str(file_stat.st_size) + " bytes" + "</td>" + "</tr>" 
+    #report = report + "\n\tFile size:" + str(file_stat.st_size) + " bytes"
     
     #Created time
-    report = report + "\n\tCreated:" + convert_to_dt(file_stat.st_ctime)
+    report = report + "\n\t<tr>" + "<td>" + "Created" + "</td>" + "<td>" + convert_to_dt(file_stat.st_ctime) + "</td>" + "</tr>"
+   # report = report + "\n\tCreated:" + convert_to_dt(file_stat.st_ctime)
     
     #Last modified time
-    report = report + "\n\tModified:" + convert_to_dt(file_stat.st_mtime)
+    report = report + "\n\t<tr>" + "<td>" + "Modified" + "</td>" + "<td>" + convert_to_dt(file_stat.st_mtime) + "</td>" + "</tr>"
+    #report = report + "\n\tModified:" + convert_to_dt(file_stat.st_mtime)
 
     #close table
-    report = report + "\n</table>
+    report = report + "\n</table>"
 
 #close html in report
-report = report + "\n</html>"
+report = report + "\n</body>\n</html>"
 
 #display report
 print(report)
 
 #use with statement to open output path object for writing (line 56 of write.py from 5B lecture)
 
-print("Opening", filepath, "in write mode")
-with path.open("w") as report_f: 
+print("Opening", output_filepath, "in write mode")
+with output_path_object.open("w") as report_f: 
     report_f.write(report)
 
     #close file
